@@ -34,7 +34,7 @@ const ProtectedRoute = ({ children }) => {
         }
       } catch (error) {
         // Handle specific 403 Forbidden error (no active subscription)
-        if (error.response && error.response.status === 403) {
+        if (error?.response && error?.response?.status === 403) {
           setHasSubscription(false); // Set subscription status as false
           toast.error('Access denied. No active subscription.');
         } else {
