@@ -11,6 +11,8 @@ const ProtectedRoute = ({ children }) => {
   const [loading, setLoading] = useState(true); // Handle loading state for async fetch
   const [hasSubscription, setHasSubscription] = useState(true); // Track subscription status
 
+  axios.defaults.withCredentials = true;
+  
   useEffect(() => {
     const fetchUserData = async () => {
       try {

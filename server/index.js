@@ -17,8 +17,10 @@ app.use(cookieParser());
 const cors = require("cors");
 app.use(
     cors({
-        origin: process.env.CLIENT_URL,
-        credentials:true,
+        origin: process.env.CLIENT_URL || "https://cybermass-ai.vercel.app",
+        credentials: true,
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allowed methods
+        allowedHeaders: "Content-Type, Authorization", // Allowed headers
     })
 )
 

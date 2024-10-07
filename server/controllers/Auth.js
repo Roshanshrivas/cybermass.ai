@@ -32,7 +32,7 @@ exports.signup = async (req, res) => {
         }
 
        //check if User already exist or not
-        let user = await User.findOne({ email });
+        let user = await User?.findOne({ email });
         if(user) {
             return res.status(400).json({ 
                 success:false,
@@ -44,7 +44,7 @@ exports.signup = async (req, res) => {
         const securePassword = await bcrypt.hash(password, 10);
 
         //Create User
-         user = await User.create({
+         user = await User?.create({
             firstName,
             lastName,
             email,
@@ -90,7 +90,7 @@ exports.login = async (req, res) => {
         }
 
         //check User already exist or not
-        let user = await User.findOne({ email }).populate('subscription');
+        let user = await User?.findOne({ email }).populate('subscription');
 
         if(!user) {
             return res.status(401).json({ 
@@ -118,8 +118,9 @@ exports.login = async (req, res) => {
         //Create cookie and send response
         const options = {
             expires: new Date(Date.now() + 3*24*60*60*1000),
-            httpOnly:true,
-            // secure:true
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
         }
 
         // res.cookie("token", token, {
