@@ -4,14 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import logo from "../assets/logoo.png";
 import backgroundImage from "../assets/stars.svg"
-import { useDispatch } from 'react-redux';
-import { setToken, setUser } from '../Slice/AuthSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoading, setToken, setUser } from '../Slice/AuthSlice';
+import Loading from "../components/Common/Loading"
+
 
 
 const Login = () => {
-
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
 
   const [formData, setFormData] = useState({
     email: "",
@@ -22,6 +21,8 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const loading = useSelector((state) => state.auth.loading);
 
 
   const handleOnChange = (e) => {
@@ -34,6 +35,8 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    dispatch(setLoading(true)); // Set loading to true
+
 
     try {
       const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, formData, { withCredentials: true });
@@ -45,12 +48,19 @@ const Login = () => {
       dispatch(setUser(data.user)); // Assuming user data is part of the response
 
       // Save token in local storage or state if needed
-      localStorage.setItem("token", JSON.stringify(data.token));
+      localStorage.setItem("token", JSON.stringify(data?.token));
      
       navigate("/");
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");
+    } finally {
+      dispatch(setLoading(false)); // Set loading to false after request finishes
     }
+  }
+
+  // If loading is true, show the Loading component
+  if (loading) {
+    return <Loading />;
   }
 
   return (
@@ -100,8 +110,10 @@ const Login = () => {
 
           <button 
             type='submit'
-            className='w-full py-3 mt-4 bg-[#993ef9] text-white font-bold rounded-md hover:bg-[#7723d1] transition duration-300'>
-            Login
+            className='w-full py-3 mt-4 bg-[#993ef9] text-white font-bold rounded-md hover:bg-[#7723d1] transition duration-300'
+            disabled={loading} // Disable button when loading
+            >
+            {loading ? "Logging in..." : "Login"}
           </button>
 
           <div className='text-center mt-4 text-sm text-gray-600'>
