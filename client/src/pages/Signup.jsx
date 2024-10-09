@@ -5,14 +5,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import backgroundImage from "../assets/stars.svg";
 import logo from "../assets/logoo.png";
 import { IoIosArrowBack } from 'react-icons/io';
-import { setSignupData } from '../Slice/AuthSlice';
-import { useDispatch } from 'react-redux';
+import { setLoading, setSignupData } from '../Slice/AuthSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../components/Common/Loading';
+
+
 
 
 const Signup = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const loading = useSelector((state) => state.auth.loading);
+
 
 
   const [formData, setFormData] = useState({
@@ -46,6 +52,8 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    dispatch(setLoading(true)); // Set loading to true
+
 
     if (password !== confirmPassword) {
       toast.error("Passwords do not match.");
@@ -72,8 +80,16 @@ const Signup = () => {
 
     } catch (error) {
       toast.error("Signup failed. Please check your credentials.");
+    } finally {
+      dispatch(setLoading(false)); // Set loading to false after request finishes
     }
   };
+
+
+  // If loading is true, show the Loading component
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div 
@@ -179,8 +195,10 @@ const Signup = () => {
 
           <button 
             type='submit'
-            className='px-3 py-2 mt-4 font-bold bg-[#993ef9] text-white rounded-md hover:bg-[#7723d1] transition duration-300'>
-            Sign Up
+            className='px-3 py-2 mt-4 font-bold bg-[#993ef9] text-white rounded-md hover:bg-[#7723d1] transition duration-300'
+            disabled={loading} // Disable button when loading
+            >
+            {loading ? "SignUp in..." : "SignUp"}
           </button>
 
         </form>
