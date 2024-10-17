@@ -17,7 +17,7 @@ const AITools = () => {
 
     <div className='w-full h-full overflow-x-hidden bg-[#140735] text-white'>
         <Navbar />
-        <div className='mobile-s:h-[60vh] lg:h-[65vh] flex flex-col justify-center items-center bg-no-repeat'
+        <div className='mobile-s:h-[50vh] lg:h-[55vh] lg:mt-[20px] flex flex-col justify-center items-center bg-no-repeat'
            style={{ 
            backgroundImage: `url(${img1})`,  
            backgroundSize: 'contain', 

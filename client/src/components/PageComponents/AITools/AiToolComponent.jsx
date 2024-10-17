@@ -3,29 +3,73 @@ import toolsData from "../../../data/AIToolsData"
 import { BsBoxArrowUpRight } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 
+
 const AiToolComponent = ({ searchQuery }) => {
 
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedSubcategory, setSelectedSubcategory] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 10;
-  const [filteredData, setFilteredData] = useState(toolsData)
+  const [filteredData, setFilteredData] = useState([]);
   
-    useEffect(() => {
-      setFilteredData(
-        toolsData?.filter((tool) => 
-          tool.title.toLowerCase().includes(searchQuery.toLowerCase()) 
-        )
-      );
-      setCurrentPage(1);
-    }, [searchQuery]);
+
+  const categoriesData = {
+    "Programming": ["code generation", "tutor", "consultant"],
+    "Marketing": ["seo", "blog & content", "social media marketing", "email marketing", "market research", "branding", "sales"],
+    "Academic": ["language", "Study & Exam Prep", "academic essay"],
+    "Job Hunting": ["ai career counselor", "cover letter", "Interview", "resume"],
+    "Game": ["simulation", "adventure", "romantic"],
+    "Creative": ["story", "art", "book", "midjourney", "creative"],
+    "Prompt Engineering": ["prompt generator", "advance techniques", "prompt optimizer"],
+    "Business": ["Finance", "Startup", "Legal", "UI/UX", "HR", "Product Management"],
+    "Productivity": ["Brainstorming", "Personal Growth", "Mental Health"],
+    "Jailbreaks": ["jailbreak"],
+  };
+
+
+  // Reset filters and show all tools
+  const resetFilters = () => {
+    setSelectedCategory('');
+    setSelectedSubcategory('');
+    setFilteredData(toolsData);
+    setCurrentPage(1);
+  };
+
+
+  useEffect(() => {
+    let filtered = toolsData?.filter(tool =>
+      tool?.title?.toLowerCase().includes(searchQuery?.toLowerCase())
+    );
+
+    if (selectedCategory) {
+      filtered = filtered?.filter(tool => tool?.category?.toLowerCase() === selectedCategory?.toLowerCase());
+    }
+
+
+    if (selectedSubcategory) {
+      filtered = filtered?.filter(tool => tool?.subcategory?.toLowerCase() === selectedSubcategory?.toLowerCase());
+    }
+
+    setFilteredData(filtered);
+    setCurrentPage(1); // reset to page 1 whenever filters change
+  }, [searchQuery, selectedCategory, selectedSubcategory]);
 
 
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = filteredData.slice(firstIndex, lastIndex);
-  const nPage = Math.ceil(toolsData.length / recordsPerPage)
+  const nPage = Math.ceil(filteredData.length / recordsPerPage)
   const numbers = [...Array(nPage).keys()].map(x => x + 1)
 
 
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+    setSelectedSubcategory(''); // Reset subcategory when changing category
+  };
+
+  const handleSubcategoryChange = (e) => {
+    setSelectedSubcategory(e.target.value);
+  };
 
 
   function prePage() {
@@ -45,8 +89,34 @@ const AiToolComponent = ({ searchQuery }) => {
   }
 
   return (
-    <div className='w-full h-full flex justify-center items-center font-Ubuntu'>
+    <div className='w-full h-full flex flex-col justify-center items-center font-Ubuntu'>
         
+        {/* Dropdown Filters */}
+      <div className="filter-section w-full flex justify-center items-center lg:gap-4 mobile-s:gap-2 p-2 text-black flex-wrap lg:mb-[25px]">
+        <select onChange={handleCategoryChange} value={selectedCategory} className="lg:px-2 lg:py-2 mobile-s:px-1 mobile-s:py-2 mobile-s:w-[130px] mobile-s:text-[14px] border rounded-lg">
+          <option value="">Select Category</option>
+          {Object.keys(categoriesData)?.map((category, index) => (
+            <option key={index} value={category}>{category}</option>
+          ))}
+        </select>
+
+        {selectedCategory && (
+          <select onChange={handleSubcategoryChange} value={selectedSubcategory} className="lg:px-4 lg:py-2 mobile-s:px-1 mobile-s:py-2 mobile-s:w-[150px] mobile-s:text-[14px] border rounded-lg">
+            <option value="">Select Subcategory</option>
+            {categoriesData[selectedCategory]?.map((subcategory, index) => (
+              <option key={index} value={subcategory}>{subcategory}</option>
+            ))}
+          </select>
+        )}
+
+        {/* Button to reset filters */}
+        <button onClick={resetFilters} className="lg:px-4 lg:py-2 lg:w-[150px] mobile-s:px-1 mobile-s:py-2 mobile-s:w-[290px] mobile-s:text-[14px] bg-[#993efc] text-white rounded-lg">
+          Show All Tools
+        </button>
+
+      </div>
+
+
         {/* Tools Cards */}
         <div className='h-full max-w-[1000px]'>
             {
@@ -98,7 +168,7 @@ const AiToolComponent = ({ searchQuery }) => {
 
 
         {/* Pagination */}
-       
+        {filteredData?.length > recordsPerPage && (
         <div className='w-full flex flex-wrap justify-center items-center mt-8'>
           <button 
             onClick={prePage} 
@@ -123,10 +193,10 @@ const AiToolComponent = ({ searchQuery }) => {
             Next
           </button>
         </div>
-
+          )}
         </div>
     </div>
-  )
-}
+  );
+};
 
-export default AiToolComponent
+export default AiToolComponent;
