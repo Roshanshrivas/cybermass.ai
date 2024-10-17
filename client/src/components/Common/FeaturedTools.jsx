@@ -17,7 +17,7 @@ const FeaturedTools = () => {
     if (!token) {
       // User is not logged in
       toast.error("You need to log in or sign up first!");
-    } else if (user && user.subscription) {
+    } else if (user && user?.subscription) {
       // User is logged in and has an active subscription
       toast.success("User is now active Plan");
       navigate("/aitools");
@@ -49,7 +49,7 @@ const FeaturedTools = () => {
               ">
                 {/* image */}
                 <div>
-                  <img src={element.image} alt={element.title} 
+                  <img src={element?.image} alt={element?.title} 
                   className="w-full xl:h-[200px] rounded-t-lg" />
                 </div>
                 {/* Button  */}
@@ -63,12 +63,12 @@ const FeaturedTools = () => {
                 <div className="p-4">
                   <div className="mb-4">
                     <h1 className="xl:text-3xl font-semibold
-                      mobile-s:text-xl custom-md:text-2xl">{element.title}</h1>
-                    <p className="text-[#999]">{element.tag}</p>
+                      mobile-s:text-xl custom-md:text-2xl">{element?.title}</h1>
+                    <p className="text-[#999]">{element?.tag}</p>
                   </div>
 
                   <div>
-                    <p className="text-[#888] mobile-s:text-xs xl:text-[18px] xl:leading-6">{element.description}</p>
+                    <p className="text-[#888] mobile-s:text-xs xl:text-[18px] xl:leading-6">{element?.description}</p>
                   </div>
                 </div>
                 
