@@ -7,7 +7,9 @@ import { FaChartBar, FaCode, FaHashtag } from 'react-icons/fa';
 import { HiSpeakerphone } from 'react-icons/hi';
 import { BsShop } from 'react-icons/bs';
 import { FaSackDollar } from 'react-icons/fa6';
-
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 
 const categoriesItems = [
@@ -53,6 +55,25 @@ const categoriesItems = [
 
 const CategoriesItem = () => {
 
+  const { token, user } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
+
+
+    const handleBtn = () => {
+     
+      if (!token) {
+        // User is not logged in
+        toast.error("You need to log in or sign up first!");
+      } else if (user && user?.subscription) {
+        // User is logged in and has an active subscription
+        toast.success("User is now active Plan");
+        navigate("/aitools");
+      } else {
+        // User is logged in but doesn't have an active subscription
+        navigate("/subscription-plans");
+      }
+    };
+
   return (
     <div className="h-full w-screen overflow-x-hidden">
     <div className="h-[90px]"></div>
@@ -75,7 +96,8 @@ const CategoriesItem = () => {
           return (
             <div
               key={index}
-              className="flex justify-start items-center xl:gap-x-4
+              onClick={() => handleBtn()}
+              className="cursor-pointer flex justify-start items-center xl:gap-x-4
                    bg-[#3a1265b7] xl:text-[24px] font-semibold rounded-md
                    border border-[#7c34c9] xl:w-[350px] xl:h-[80px] xl:pl-6
                    hover:bg-[#421D6A] hover:shadow-[0px_5px_25px_5px_#421D6A]
