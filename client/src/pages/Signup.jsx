@@ -42,21 +42,41 @@ const Signup = () => {
   }
 
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value
-  //   });
-  // };
+    // Email validation
+    const isValidEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+  
+    // Password validation (at least 8 characters, 1 number, 1 special character)
+    const isValidPassword = (password) => {
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return passwordRegex.test(password);
+    };
+  
 
   const handleSignup = async (e) => {
     e.preventDefault();
     dispatch(setLoading(true)); // Set loading to true
 
 
+    // Form validation
+    if (!isValidEmail(email)) {
+      toast.error("Please enter a valid email address.");
+      dispatch(setLoading(false));
+      return;
+    }
+
+    if (!isValidPassword(password)) {
+      toast.error("Password must be at least 8 characters long, contain at least one number, and one special character.");
+      dispatch(setLoading(false));
+      return;
+    }
+
+
     if (password !== confirmPassword) {
       toast.error("Passwords do not match.");
+      dispatch(setLoading(false));
       return;
     }
 
@@ -123,7 +143,7 @@ const Signup = () => {
               onChange={handleChange}
               className='w-full border border-gray-300 rounded-md p-2 outline-none focus:border-indigo-500 transition duration-200'
               required
-              placeholder='Your first name'
+              placeholder='First Name'
             />
           </div>
 
@@ -138,7 +158,7 @@ const Signup = () => {
               onChange={handleChange}
               className='w-full border border-gray-300 rounded-md p-2 outline-none focus:border-indigo-500 transition duration-200'
               required
-              placeholder='Your last name'
+              placeholder='Last Name'
             />
           </div>
         </div>
