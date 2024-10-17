@@ -12,7 +12,7 @@ const SearchBar = ({ onSearch }) => {
 
 
   return (
-    <form className='w-full sm:w-[350px] md:w-[400px] lg:w-[500px] relative mt-8 sm:mt-4 hover:border rounded-full 
+    <form className='w-full sm:w-[350px] md:w-[400px] lg:w-[500px] relative lg:mt-8 mobile-s:mt-2 sm:mt-4 hover:border rounded-full 
         p-2 hover:border-[#993efc] transition-all ease-in-out 
         hover:shadow-[0px_5px_100px_0px_#993efc] border border-[#555]'>
         <div className="relative">

@@ -92,7 +92,7 @@ const AiToolComponent = ({ searchQuery }) => {
     <div className='w-full h-full flex flex-col justify-center items-center font-Ubuntu'>
         
         {/* Dropdown Filters */}
-      <div className="filter-section w-full flex justify-center items-center lg:gap-4 mobile-s:gap-2 p-2 text-black flex-wrap lg:mb-[25px]">
+      <div className="filter-section w-full flex justify-center items-center lg:gap-4 mobile-s:gap-2 mobile-s:mb-[50px] p-2 text-black flex-wrap lg:mb-[25px]">
         <select onChange={handleCategoryChange} value={selectedCategory} className="lg:px-2 lg:py-2 mobile-s:px-1 mobile-s:py-2 mobile-s:w-[130px] mobile-s:text-[14px] border rounded-lg">
           <option value="">Select Category</option>
           {Object.keys(categoriesData)?.map((category, index) => (
