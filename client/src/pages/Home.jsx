@@ -3,14 +3,9 @@ import Navbar from '../components/Common/Navbar'
 import Slider from '../components/Common/Slider'
 import HeadingText from '../components/Common/HeadingText'
 import CTAButton from '../components/Common/CTAButton'
-import { FaArrowDown, FaChartBar, FaCode, FaHashtag } from 'react-icons/fa'
+import { FaArrowDown } from 'react-icons/fa'
 import HighlightText from '../components/Common/HighlightText'
 import { FaArrowDownLong, FaSackDollar } from "react-icons/fa6";
-import { BsShop } from 'react-icons/bs'
-import { PiChartLineUpBold } from 'react-icons/pi'
-import { IoChatboxEllipsesSharp } from 'react-icons/io5'
-import { HiSpeakerphone } from 'react-icons/hi'
-import { CiBoxList } from 'react-icons/ci'
 import TabSection from '../components/Common/TabSection'
 import FeaturedTools from '../components/Common/FeaturedTools'
 import { Link, useNavigate } from 'react-router-dom'
@@ -21,7 +16,6 @@ import BlogPost from '../components/PageComponents/AIAcademy/BlogPost'
 import GetStarted from "../components/PageComponents/AIAcademy/GetStarted"
 import SubscriptionPlans from '../components/Common/SubscriptionPlane'
 import CategoriesItem from '../components/Common/CategoriesItem'
-
 
 
 

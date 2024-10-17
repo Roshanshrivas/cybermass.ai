@@ -54,7 +54,7 @@ const categoriesItems = [
 const CategoriesItem = () => {
 
   return (
-    <div className="min-h-screen w-screen overflow-x-hidden">
+    <div className="h-full w-screen overflow-x-hidden">
     <div className="h-[90px]"></div>
     {/* Text  */}
     <div className="xl:text-6xl font-Ubuntu flex flex-col justify-center items-center
