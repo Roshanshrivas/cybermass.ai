@@ -35,7 +35,7 @@ const Tabs = ({ tabs, color }) => {
 
   return (
     <>
-      <div className="flex flex-wrap mt-[200px] justify-center items-center">
+      <div className="flex flex-wrap lg:mt-[200px] mobile-s:mt-[90px] justify-center items-center">
         <div className="xl:w-[85%] mobile-s:w-[95%] mobile-l:w-[90%] custom-md:w-[80%] lg:w-[80%]">
           <ul className="flex xl:mb-11 list-none flex-wrap pt-3 pb-4 flex-row justify-center" role="tablist">
             {tabs.map((tab, index) => (

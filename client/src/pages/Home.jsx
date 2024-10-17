@@ -77,21 +77,21 @@ const Home = () => {
 
 
       {/*==============> section 3 <================ */}
-      <div className="min-h-screen w-screen overflow-x-hidden">
+      <div className="h-full w-screen overflow-x-hidden">
         <TabSection />
       </div>
 
 
 
       {/*==============> section 4 <================*/}
-      <div className="min-h-screen w-screen overflow-x-hidden">
+      <div className="h-full w-screen overflow-x-hidden">
         <FeaturedTools />
       </div>
 
 
 
       {/*==============> section 5 <================= */}
-        <div className="min-h-screen w-screen overflow-x-hidden flex justify-center items-center">
+        <div className="h-full w-screen overflow-x-hidden flex justify-center items-center">
            <div className="w-11/12 flex xl:flex-nowrap mobile-s:flex-wrap gap-4 mt-[150px]">
              {/* Left Box */}
              <div className="w-full xl:w-1/2 h-auto xl:h-[60vh] flex flex-col justify-center">

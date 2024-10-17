@@ -46,7 +46,7 @@ const AITools = () => {
 
 
             {/* FAQ Section */}
-            <div className='w-full h-screen flex justify-center items-center mt-[100px]'>
+            <div className='w-full h-screen flex justify-center items-center'>
               <div className='w-full'>
                 <FAQ />
               </div>
