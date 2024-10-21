@@ -17,8 +17,8 @@ const BlogDetail = () => {
     <div className="w-full h-screen overflow-x-hidden bg-[#140735] text-white">
     <Navbar />
 
-     <div className='p-8 mt-[80px]'>
-        <div className="text-6xl font-bold mb-4">
+     <div className='lg:p-8 mobile-s:p-4 lg:mt-[50px]'>
+        <div className="lg:text-6xl font-bold mb-4">
             {blogPost.title}
         </div>
 
@@ -41,7 +41,7 @@ const BlogDetail = () => {
         <img 
           src={blogPost.image} 
           alt={blogPost.title} 
-          className="w-full h-[500px] object-cover rounded-lg mb-4 mt-[20px]"
+          className="lg:w-full lg:h-[500px] object-cover rounded-lg mt-[20px]"
         />
         )}
 
