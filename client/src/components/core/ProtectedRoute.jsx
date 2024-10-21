@@ -1,15 +1,21 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import Loading from "../Common/Loading"
+import { setUser } from "../../Slice/AuthSlice";
+
 
 const ProtectedRoute = ({ children }) => {
   const { token, user } = useSelector((state) => state.auth); // Get token and user info from Redux
   const [userInfo, setUserInfo] = useState(null); // Store user info in local state
   const [loading, setLoading] = useState(true); // Handle loading state for async fetch
   const [hasSubscription, setHasSubscription] = useState(true); // Track subscription status
+
+
+  const dispatch = useDispatch();
+
 
   axios.defaults.withCredentials = true;
   
@@ -28,6 +34,7 @@ const ProtectedRoute = ({ children }) => {
 
         if (subscription) {
           setUserInfo(userData); // Set user info if the user has a valid subscription
+          dispatch(setUser(userData)); // Update Redux store with latest user data
           setHasSubscription(true); // User has a valid subscription
           toast.success('Subscription active!'); // Success toast
         } else {

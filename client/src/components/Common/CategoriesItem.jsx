@@ -70,6 +70,7 @@ const CategoriesItem = () => {
         navigate("/aitools");
       } else {
         // User is logged in but doesn't have an active subscription
+        toast.error("You need to purchase a subscription plan.");
         navigate("/subscription-plans");
       }
     };
